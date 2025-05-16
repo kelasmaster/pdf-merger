@@ -9,9 +9,20 @@
 <body>
   <div class="container">
     <h1>PDF Merger</h1>
-    <p>Select at least 2 PDF files to merge:</p>
-<input type="file" id="pdfInput" accept="application/pdf" multiple />
-<button id="mergeBtn">Merge PDFs</button>
+
+    <!-- Hidden file input -->
+    <input type="file" id="pdfInput" accept="application/pdf" multiple style="display: none;" />
+
+    <!-- Custom Upload Button -->
+    <button id="uploadBtn">📁 Upload PDF Files</button>
+
+    <!-- File list display -->
+    <ul id="fileList"></ul>
+
+    <!-- Merge Button -->
+    <button id="mergeBtn">Merge PDFs</button>
+
+    <p id="status"></p>
   </div>
 
   <!-- pdf-lib CDN -->
