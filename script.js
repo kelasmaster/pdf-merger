@@ -1,24 +1,44 @@
+let allFiles = [];
+
+// Trigger hidden file input
 document.getElementById("uploadBtn").addEventListener("click", () => {
   document.getElementById("pdfInput").click();
 });
 
+// Handle file selection and append to list
 document.getElementById("pdfInput").addEventListener("change", () => {
-  const files = document.getElementById("pdfInput").files;
+  const files = Array.from(document.getElementById("pdfInput").files);
+
+  // Filter only PDFs
+  const pdfFiles = files.filter(file => file.type === "application/pdf");
+
+  // Append to global list
+  allFiles = [...allFiles, ...pdfFiles];
+
+  updateFileList();
+  document.getElementById("pdfInput").value = ""; // Reset input to allow same file re-selection
+});
+
+// Update UI with selected files
+function updateFileList() {
   const fileList = document.getElementById("fileList");
   fileList.innerHTML = "";
 
-  for (let i = 0; i < files.length; i++) {
-    const li = document.createElement("li");
-    li.textContent = files[i].name;
-    fileList.appendChild(li);
+  if (allFiles.length === 0) {
+    fileList.innerHTML = "<li>No files selected</li>";
+    return;
   }
-});
 
+  allFiles.forEach((file, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+    fileList.appendChild(li);
+  });
+}
+
+// Merge button logic
 document.getElementById("mergeBtn").addEventListener("click", async () => {
-  const input = document.getElementById("pdfInput");
-  const files = input.files;
-
-  if (files.length < 2) {
+  if (allFiles.length < 2) {
     alert("Please select at least 2 PDF files.");
     return;
   }
@@ -29,8 +49,8 @@ document.getElementById("mergeBtn").addEventListener("click", async () => {
 
   const mergedPdf = await PDFDocument.create();
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
+  for (let i = 0; i < allFiles.length; i++) {
+    const file = allFiles[i];
     const arrayBuffer = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(arrayBuffer);
 
