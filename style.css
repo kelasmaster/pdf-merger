@@ -14,24 +14,35 @@ body {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   text-align: center;
   width: 90%;
-  max-width: 400px;
-}
-
-input[type="file"] {
-  margin-bottom: 1rem;
+  max-width: 450px;
 }
 
 button {
+  margin: 0.5rem;
   padding: 0.6rem 1.2rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 button:hover {
   background-color: #0056b3;
+}
+
+#fileList {
+  text-align: left;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 1rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#fileList li {
+  margin-bottom: 5px;
 }
 
 #status {
