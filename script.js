@@ -1,8 +1,23 @@
+document.getElementById("uploadBtn").addEventListener("click", () => {
+  document.getElementById("pdfInput").click();
+});
+
+document.getElementById("pdfInput").addEventListener("change", () => {
+  const files = document.getElementById("pdfInput").files;
+  const fileList = document.getElementById("fileList");
+  fileList.innerHTML = "";
+
+  for (let i = 0; i < files.length; i++) {
+    const li = document.createElement("li");
+    li.textContent = files[i].name;
+    fileList.appendChild(li);
+  }
+});
+
 document.getElementById("mergeBtn").addEventListener("click", async () => {
   const input = document.getElementById("pdfInput");
   const files = input.files;
 
-  // Enforce minimum of 2 files
   if (files.length < 2) {
     alert("Please select at least 2 PDF files.");
     return;
