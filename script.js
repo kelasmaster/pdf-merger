@@ -2,8 +2,9 @@ document.getElementById("mergeBtn").addEventListener("click", async () => {
   const input = document.getElementById("pdfInput");
   const files = input.files;
 
-  if (files.length === 0) {
-    alert("Please select at least one PDF file.");
+  // Enforce minimum of 2 files
+  if (files.length < 2) {
+    alert("Please select at least 2 PDF files.");
     return;
   }
 
